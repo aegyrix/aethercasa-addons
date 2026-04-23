@@ -1,0 +1,30 @@
+name: 'AetherCasa Bridge'
+version: '0.0.1'
+slug: aethercasa_bridge
+description: >-
+  Connects your Home Assistant instance to AetherCasa. Streams entity state to
+  your AetherCasa home and relays commands back. All control stays on your LAN;
+  only entity state is forwarded.
+url: https://github.com/aegyrix/aethercasa-addons
+arch:
+  - aarch64
+  - amd64
+  - armv7
+init: false
+hassio_api: true
+hassio_role: default
+homeassistant_api: true
+startup: services
+boot: auto
+# Bridge opens an outbound WSS to api.aethercasa.app. No ingress/port needed.
+ingress: false
+options:
+  pairing_code: ''
+  cloud_url: 'https://api.aethercasa.app'
+  log_level: 'info'
+schema:
+  # Leave blank after first successful pair; only required on first boot.
+  pairing_code: "match(^$|^\\d{6}$)"
+  cloud_url: 'url'
+  log_level: 'list(debug|info|warn|error)'
+image: ghcr.io/aegyrix/aethercasa-bridge-addon-{arch}
