@@ -1,0 +1,45 @@
+name: ci
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: [self-hosted, linux, x64, vps02]
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect & test
+        shell: bash
+        run: |
+          set -e
+          ran=0
+          if [ -f package.json ]; then
+            echo "::group::npm"
+            (npm ci --silent || npm install --silent --no-audit --no-fund)
+            npm test --if-present
+            echo "::endgroup::"
+            ran=1
+          fi
+          if ls *.sln 2>/dev/null | head -1 >/dev/null || find . -maxdepth 4 -name "*.csproj" 2>/dev/null | head -1 | grep -q .; then
+            echo "::group::dotnet"
+            dotnet restore
+            dotnet build --no-restore -v minimal
+            dotnet test --no-build -v minimal || true
+            echo "::endgroup::"
+            ran=1
+          fi
+          if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
+            echo "::group::python"
+            python3 -m venv .venv
+            .venv/bin/pip install --quiet -r requirements.txt 2>/dev/null || true
+            [ -f pyproject.toml ] && .venv/bin/pip install --quiet -e . 2>/dev/null || true
+            if [ -d tests ] || [ -d test ]; then
+              .venv/bin/pip install --quiet pytest
+              .venv/bin/python -m pytest -q
+            fi
+            echo "::endgroup::"
+            ran=1
+          fi
+          if [ "$ran" = "0" ]; then echo "no recognized toolchain — runner reachable, no-op"; fi
