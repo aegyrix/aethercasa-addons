@@ -1,0 +1,20 @@
+# Auto-generated 2026-05-11 — uniform config across the aegyrix org.
+# - Weekly cadence (was unbounded before; this caps the noise).
+# - Minor + patch updates grouped into one PR per ecosystem per week.
+# - Dev deps grouped separately so app-runtime PRs stay focused.
+# - Major versions are ignored — bump intentionally when ready.
+# - Security advisories ALWAYS flow through (Dependabot's security path
+#   bypasses this schedule; it never waits on the weekly cadence).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
