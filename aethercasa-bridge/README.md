@@ -1,6 +1,6 @@
-# AetherCasa Bridge
+# ÆtherCasa Bridge
 
-Connects your Home Assistant to [AetherCasa](https://aethercasa.app).
+Connects your Home Assistant to [ÆtherCasa](https://aethercasa.app).
 
 ## How it works
 
@@ -29,7 +29,7 @@ token to talk to HA over the internal API.
    ```
 
 3. Open that URL on any device — phone, laptop, anything signed in to
-   your AetherCasa account. Confirm the code matches what's shown in the
+   your ÆtherCasa account. Confirm the code matches what's shown in the
    logs, pick which home this bridge belongs to, and click **Approve**.
 4. The add-on finishes pairing on its own within a few seconds.
 
@@ -46,25 +46,25 @@ Clear the field after first successful pair.
 
 ## Re-pairing
 
-If you ever need to re-pair (e.g. you deleted the bridge in the AetherCasa web
+If you ever need to re-pair (e.g. you deleted the bridge in the ÆtherCasa web
 app), stop the add-on, delete `/data/bridge.json` via the Supervisor file
 editor, and start the add-on again. A fresh activation code will appear in the
 logs.
 
 ## Options
 
-| Key            | Default                      | Description                                   |
-| -------------- | ---------------------------- | --------------------------------------------- |
-| `pairing_code` | _(blank)_                    | 6-digit code from AetherCasa; first-boot only |
-| `cloud_url`    | `https://api.aethercasa.app` | AetherCasa cloud endpoint                     |
-| `log_level`    | `info`                       | `debug`, `info`, `warn`, `error`              |
+| Key            | Default                      | Description                                  |
+| -------------- | ---------------------------- | -------------------------------------------- |
+| `pairing_code` | _(blank)_                    | 6-digit code from ÆtherCasa; first-boot only |
+| `cloud_url`    | `https://api.aethercasa.app` | ÆtherCasa cloud endpoint                     |
+| `log_level`    | `info`                       | `debug`, `info`, `warn`, `error`             |
 
 ## Privacy
 
 - No HA long-lived token is requested; the add-on uses the supervisor-issued
   token which is scoped to this add-on and auto-rotated.
 - Entity state (attributes, last_changed, etc.) is forwarded to your
-  AetherCasa home. No raw HA credentials or integrations config ever leave
+  ÆtherCasa home. No raw HA credentials or integrations config ever leave
   your network.
 
 ## Troubleshooting

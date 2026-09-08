@@ -5,6 +5,6 @@
     "armv7": "ghcr.io/home-assistant/armv7-base:3.19"
   },
   "labels": {
-    "org.opencontainers.image.source": "https://github.com/aegyrix/aethercasa-addons"
+    "org.opencontainers.image.source": "https://aethercasa.com/docs"
   }
 }
